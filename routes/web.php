@@ -22,3 +22,7 @@ Route::get('jesus/{id}', function ($id) {
 Route::get('/test/{id}', 'BabiesController@showHello');
 
 Route::get('/babies', 'BabiesController@indexAction');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
