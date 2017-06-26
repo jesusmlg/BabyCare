@@ -11,18 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+Route:get('/')
+
+
+Route::middleware('auth')->group(function(){
+	Route::get('/babies', 'BabiesController@indexAction')->name('all_babies_path');
+	Route::get('/baby/new', 'BabiesController@newAction')->name('new_baby_path');
 });
-
-Route::get('jesus/{id}', function ($id) {
-    return 'Hello Jesus '.$id;
-});
-
-Route::get('/test/{id}', 'BabiesController@showHello');
-
-Route::get('/babies', 'BabiesController@indexAction');
-
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
