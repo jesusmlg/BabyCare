@@ -11,7 +11,7 @@
     </div>
      <div id="navbar" class="navbar-collapse collapse">
        <ul class="nav navbar-nav">
-        <li class="active"><a href="">Home</a></li>       
+        <li class="active"><a href="{{ route("all_babies_path") }}">Home</a></li>       
       </ul> 
       <ul class="nav navbar-nav navbar-right">
         <!-- Authentication Links -->
@@ -25,7 +25,7 @@
                 </a>
 
                 <ul class="dropdown-menu" role="menu">
-                    <li><a href="{{ route("new_baby_path") }}">All Babies</a></li>
+                    <li><a href="{{ route("all_babies_path") }}">All Babies</a></li>
                     
                     <li>
                         <a href="{{ route('logout') }}"

@@ -19,10 +19,12 @@
 		<nav>
 			@include('navbar')
 		</nav>
-		<div class="container">
+		<div class="container" style="margin-top: 70px;">
             <div class="row">
                 <div class="cold-md-10 cold-md-offset2 col-xs-10 col-xs-offset-1">
-                <div id="alerts"></div>
+                
+                    @include('layouts._errors')
+                
                     @yield('content')
                 </div>
             </div>
