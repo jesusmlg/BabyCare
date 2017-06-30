@@ -24,6 +24,8 @@
                 <div class="cold-md-10 cold-md-offset2 col-xs-10 col-xs-offset-1">
                 
                     @include('layouts._errors')
+
+                    @include('layouts._messages')
                 
                     @yield('content')
                 </div>
