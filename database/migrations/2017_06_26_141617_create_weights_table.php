@@ -16,7 +16,7 @@ class CreateWeightsTable extends Migration
         Schema::create('weights', function (Blueprint $table) {
             $table->increments('id');
             $table->date('date');
-            $table->decimal('weight',5,3);
+            $table->decimal('weight',10,3);
             $table->integer('baby_id');
             $table->timestamps();
 

@@ -182,6 +182,8 @@ return [
         Barryvdh\Debugbar\ServiceProvider::class,
         // For Image resizing
         Intervention\Image\ImageServiceProvider::class,
+        //Graphics
+        Khill\Lavacharts\Laravel\LavachartsServiceProvider::class,
 
     ],
 
@@ -234,6 +236,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        'Lava' => Khill\Lavacharts\Laravel\LavachartsFacade::class,
+
 
 
     ],

@@ -11,6 +11,9 @@
 |
 */
 
+Route::get('/im',function(){
+	return Image::make('gris.jpg')->response();
+});
 
 Route::middleware('auth')->group(function(){
 	Route::get('/','BabiesController@indexAction');
@@ -22,5 +25,11 @@ Route::middleware('auth')->group(function(){
 	Route::post('/baby/{baby}/update','BabiesController@updateAction')->name('update_baby_path');
 	Route::delete('/baby/{baby}/delete','BabiesController@deleteAction')->name('delete_baby_path');
 	Route::get('/baby/{baby}','BabiesController@showAction')->name('show_baby_path');
+
+	//weight routes
+
+	Route::get('/baby/{baby}/weights','WeightsController@indexAction')->name('all_weights_path');
+	Route::get('/baby/{baby}/weights/new','WeightsController@newAction')->name('new_weight_path');
+	Route::post('/baby/{baby}/weights/create','WeightsController@createAction')->name('create_weight_path');
 });
 Auth::routes();

@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\File;
+use \App\Weight;
+use Khill\Lavacharts\Lavacharts;
+
 //use App\Http\Controllers\Input;
 
 class BabiesController extends Controller
@@ -63,7 +66,8 @@ class BabiesController extends Controller
  
         if ($request->hasFile('baby_photo')) 
         {
-            Storage::delete(['public/img/babies/'.$baby->baby_photo]);
+            if($baby->baby_photo && Storage::exists('public/img/babies/'.$baby->baby_photo))
+                Storage::delete(['public/img/babies/'.$baby->baby_photo]);
 
             
             $filename = md5(time()).'.'. $request->baby_photo->extension();
@@ -71,7 +75,7 @@ class BabiesController extends Controller
             //$path = $request->baby_photo->storeAs('public/img/babies', $filename);
 
             //$imgtmp = Image::make($request->baby_photo)->resize(80, 80)->save(public_path('img/'.$filename));
-            $imgtmp = Image::make($request->baby_photo)->fit(80)->save(public_path('img/'.$filename));
+            $imgtmp = Image::make($request->baby_photo)->fit(250)->save(public_path('img/'.$filename));
 
             Storage::put('public/img/babies/'. $filename, $imgtmp);
             File::delete(public_path('img/'.$filename));
@@ -85,9 +89,41 @@ class BabiesController extends Controller
 
     public function deleteAction(Baby $baby, Request $request)
     {
-        $baby->delete();
+        if($baby->delete())
+        {
+            session()->flash('message','Baby deleted correctly');
+        }
 
         return redirect()->route('all_babies_path');
+    }
+
+    public function showAction(Baby $baby, Request $request)
+    {
+        $weight = new \App\Weight();
+        $lava = new \Khill\Lavacharts\Lavacharts;
+
+        $data = \App\Weight::select('date as 0','weight as 1')->where('baby_id',$baby->id)->orderBy('date','asc')->get()->toArray();
+
+        $population = $lava->DataTable();
+
+        $population->addDateColumn('Date')
+                    ->addNumberColumn('Weight')
+                    ->addRows($data);
+
+       /*$population->addDateColumn('Date')
+                    ->addNumberColumn('Weight')
+                    ->addRow(['03-03-2017',1])
+                    ->addRow(['05-03-2017',2])
+                    ->addRow(['07-03-2017',6])
+                    ->addRow(['09-03-2017',9])
+                    ->addRow(['14-03-2017',15])
+                    ->addRow(['20-03-2017',20]);
+                    */
+
+
+        $lava->AreaChart('Population',$population,['ticle' => 'weight of my baby', 'lenged' => ['position' =>'in'] ]);
+
+        return view('babies.show',compact('baby','weight','lava'));
     }
 
 }
