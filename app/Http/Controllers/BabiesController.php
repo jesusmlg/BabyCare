@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\File;
 use \App\Weight;
+use \App\Vaccine;
 use Khill\Lavacharts\Lavacharts;
 
 //use App\Http\Controllers\Input;
@@ -100,6 +101,8 @@ class BabiesController extends Controller
     public function showAction(Baby $baby, Request $request)
     {
         $weight = new \App\Weight();
+        $vaccine = new Vaccine();
+
         $lava = new \Khill\Lavacharts\Lavacharts;
 
         $data = \App\Weight::select('date as 0','weight as 1')->where('baby_id',$baby->id)->orderBy('date','asc')->get()->toArray();
@@ -110,20 +113,9 @@ class BabiesController extends Controller
                     ->addNumberColumn('Weight')
                     ->addRows($data);
 
-       /*$population->addDateColumn('Date')
-                    ->addNumberColumn('Weight')
-                    ->addRow(['03-03-2017',1])
-                    ->addRow(['05-03-2017',2])
-                    ->addRow(['07-03-2017',6])
-                    ->addRow(['09-03-2017',9])
-                    ->addRow(['14-03-2017',15])
-                    ->addRow(['20-03-2017',20]);
-                    */
+        $lava->AreaChart('BabyWeights',$population,['ticle' => 'weight of my baby', 'lenged' => ['position' =>'in'] ]);
 
-
-        $lava->AreaChart('Population',$population,['ticle' => 'weight of my baby', 'lenged' => ['position' =>'in'] ]);
-
-        return view('babies.show',compact('baby','weight','lava'));
+        return view('babies.show',compact('baby','weight','lava','vaccine'));
     }
 
 }

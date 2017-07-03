@@ -17,7 +17,7 @@
 	</head>
 	<body>
 		<nav>
-			@include('navbar')
+			@include('layouts.navbar')
 		</nav>
 		<div class="container" style="margin-top: 70px;">
             <div class="row">

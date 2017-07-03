@@ -23,6 +23,15 @@
 				</p>
 
 		</li>
+
+		<li class="list-group-item">
+
+			<b>Vaccines:</b>
+				<p>
+					@include('vaccines._index',['baby' => $baby ])					
+				</p>
+
+		</li>
 	</ul>
 
 

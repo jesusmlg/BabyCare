@@ -11,8 +11,9 @@
 |
 */
 
-Route::get('/im',function(){
-	return Image::make('gris.jpg')->response();
+Route::get('/test',function(){
+	$file = Storage::get('rojo.png');
+	return Image::make($file)->response();
 });
 
 Route::middleware('auth')->group(function(){
@@ -26,10 +27,16 @@ Route::middleware('auth')->group(function(){
 	Route::delete('/baby/{baby}/delete','BabiesController@deleteAction')->name('delete_baby_path');
 	Route::get('/baby/{baby}','BabiesController@showAction')->name('show_baby_path');
 
-	//weight routes
+	//weights routes
 
 	Route::get('/baby/{baby}/weights','WeightsController@indexAction')->name('all_weights_path');
 	Route::get('/baby/{baby}/weights/new','WeightsController@newAction')->name('new_weight_path');
 	Route::post('/baby/{baby}/weights/create','WeightsController@createAction')->name('create_weight_path');
+
+	//vaccines routes
+
+	Route::get('/vaccine/{vaccine}/weights','VaccinesController@indexAction')->name('all_vaccines_path');
+	Route::get('/vaccine/{vaccine}/weights/new','VaccinesCController@newAction')->name('new_vaccine_path');
+	Route::post('/vaccine/{vaccine}/weights/create','VaccinesCController@createAction')->name('create_vaccine_path');
 });
 Auth::routes();
