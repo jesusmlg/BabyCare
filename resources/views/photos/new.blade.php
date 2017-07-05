@@ -22,7 +22,7 @@
 			<span class='label label-info' id="selected-file"></span>	
 
 			<div class="form-group">
-				{{ Form::hidden('baby', $baby->id) }}
+				{{ Form::hidden('baby_id', $baby->id) }}
 			</div>
 
 			<div class="form-group">
