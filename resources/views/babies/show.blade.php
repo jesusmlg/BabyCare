@@ -32,6 +32,12 @@
 				</p>
 
 		</li>
+		<li class="list-group-item">
+			<b>Photos:</b>
+			<p>
+				<a href="{{ route('new_photo_path',['baby' => $baby->id]) }}" class="btn btn-primary">Add Photos</a>
+			</p>
+		</li>
 	</ul>
 
 

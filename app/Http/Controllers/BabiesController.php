@@ -101,7 +101,15 @@ class BabiesController extends Controller
     public function showAction(Baby $baby, Request $request)
     {
         $weight = new \App\Weight();
+        
         $vaccine = new Vaccine();
+        
+        $vaccines = \App\Vaccine::where('baby_id', $baby->id)
+                                ->where('done',0)
+                                ->orderBy('due_date','asc')
+                                ->skip(0)
+                                ->take(2)
+                                ->get();
 
         $lava = new \Khill\Lavacharts\Lavacharts;
 
@@ -115,7 +123,7 @@ class BabiesController extends Controller
 
         $lava->AreaChart('BabyWeights',$population,['ticle' => 'weight of my baby', 'lenged' => ['position' =>'in'] ]);
 
-        return view('babies.show',compact('baby','weight','lava','vaccine'));
+        return view('babies.show',compact('baby','weight','lava','vaccine','vaccines'));
     }
 
 }

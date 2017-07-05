@@ -35,8 +35,14 @@ Route::middleware('auth')->group(function(){
 
 	//vaccines routes
 
-	Route::get('/vaccine/{vaccine}/weights','VaccinesController@indexAction')->name('all_vaccines_path');
-	Route::get('/vaccine/{vaccine}/weights/new','VaccinesCController@newAction')->name('new_vaccine_path');
-	Route::post('/vaccine/{vaccine}/weights/create','VaccinesCController@createAction')->name('create_vaccine_path');
+	Route::get('/vaccine/{baby}/vaccines','VaccinesController@indexAction')->name('all_vaccines_path');
+	Route::get('/vaccine/{baby}/new','VaccinesController@newAction')->name('new_vaccine_path');
+	Route::post('/vaccine/{baby}/create','VaccinesController@createAction')->name('create_vaccine_path');
+
+	//Photos routes
+
+	Route::get('/photo/{baby}','PhotosController@indexAction')->name('all_photos_path');
+	Route::get('/photo/{baby}/new','PhotosController@newAction')->name('new_photo_path');
+	Route::post('/photo/{baby}/create','PhotosController@createAction')->name('create_photo_path');
 });
 Auth::routes();

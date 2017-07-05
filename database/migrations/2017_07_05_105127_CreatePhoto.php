@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateVaccines extends Migration
+class CreatePhoto extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateVaccines extends Migration
      */
     public function up()
     {
-        Schema::create('vaccines', function(Blueprint $table){
-            $table->string('name');
+        Schema::create('photos',function(Blueprint $table){
+            $table->string('photo');
+            $table->string('photo_thumb');
+            $table->text('description');
             $table->integer('baby_id');
-            $table->date('due_date');
-            $table->date('done_date'->default('01-01-1900'));
-            $table->integer('done')->default(0);
+            $table->date('date');
+            $table->timestamps();
         });
     }
 
