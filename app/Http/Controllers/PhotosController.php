@@ -29,10 +29,12 @@ class PhotosController extends Controller
     	if($request->hasFile('photo'))
     	{
     		$filename = md5(time()) . "." . $request->photo->extension();
-            Storage::put($this->_path.$baby->id."/".$filename, Image::make($request->photo)->widen(1024,function($constraint){
-                $constraint->upsize();
-            })->encode());
-            Storage::put($this->_path.$baby->id."/".$filename, Image::make($request->photo)->encode());
+            Storage::put($this->_path.$baby->id."/".$filename, Image::make($request->photo)
+                                                                    ->widen(1024,function($constraint){
+                                                                                $constraint->upsize();
+                                                                        })
+                                                                    ->encode());
+            Storage::put($this->_path_thumb.$baby->id."/".$filename, Image::make($request->photo)->encode());
 
     		
     	}
