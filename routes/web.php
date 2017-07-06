@@ -11,10 +11,15 @@
 |
 */
 
-Route::get('/test',function(){
-	$file = Storage::get('rojo.png');
-	return Image::make($file)->response();
-});
+Route::get('/photo/{baby}/thumb/{file}',function($baby,$file){
+	$img = Storage::get('photos_thumb/'.$baby."/".$file);
+	return Image::make($img)->response();
+})->name('show_photothumb_path')->middleware('auth');
+
+Route::get('/photo/{baby}/photo/{file}',function($baby,$file){
+	$img = Storage::get('photos/'.$baby."/".$file);
+	return Image::make($img)->response();
+})->name('show_photo_path')->middleware('auth');
 
 Route::middleware('auth')->group(function(){
 	Route::get('/','BabiesController@indexAction');
@@ -44,5 +49,6 @@ Route::middleware('auth')->group(function(){
 	Route::get('/photo/{baby}','PhotosController@indexAction')->name('all_photos_path');
 	Route::get('/photo/{baby}/new','PhotosController@newAction')->name('new_photo_path');
 	Route::post('/photo/{baby}/create','PhotosController@createAction')->name('create_photo_path');
+	Route::delete('/baby/{baby}/photo/{photo}/delete','PhotosController@destroyAction')->name('delete_photo_path');
 });
 Auth::routes();

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Photo extends Model
 {
-    protected $fillable = ['date','photo','photo_thumb','description'];
+    protected $fillable = ['date','photo','photo_thumb','description','baby_id'];
 
      public function geteDateAttribute($value)
     {

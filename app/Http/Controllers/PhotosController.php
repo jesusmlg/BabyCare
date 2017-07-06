@@ -12,8 +12,8 @@ use Illuminate\Support\Facades\Storage;
 class PhotosController extends Controller
 {
 
-	private $_path = "photos/";
-	private $_path_thumb = "photos_thumb/";
+	private $_path = "photos";
+	private $_path_thumb = "photos_thumb";
 
     public function newAction(Baby $baby)
     {
@@ -22,29 +22,62 @@ class PhotosController extends Controller
     	return view('photos.new', compact('baby','photo'));
     }
 
+    public function indexAction(Baby $baby)
+    {
+        $photo = new Photo();
+        $photos = \App\Photo::where('baby_id',$baby->id)->orderBy('date','desc')->paginate(10);
+
+        return view('photos.index', compact('photos','photo','baby'));
+    }
+
     public function createAction(Baby $baby, CreatePhotoRequest $request)
     {
-    	$photo = new Photo();
+    	
+        $ok = true;
 
-    	if($request->hasFile('photo'))
-    	{
-    		$filename = md5(time()) . "." . $request->photo->extension();
-            Storage::put($this->_path.$baby->id."/".$filename, Image::make($request->photo)
-                                                                    ->widen(1024,function($constraint){
-                                                                                $constraint->upsize();
-                                                                        })
-                                                                    ->encode());
-            Storage::put($this->_path_thumb.$baby->id."/".$filename, Image::make($request->photo)->encode());
+        foreach ($request->photo as $img) 
+        {
+            $photo = new Photo();
 
-    		
-    	}
+            $filename = md5(time()) . "." . $img->extension();    
 
-        $photo->photo = "x";
-        $photo->photo_thumb = "x";
-        $photo->description = $request->description;
-        $photo->date = $request->date;
-        $photo->baby_id = $request->baby_id;
+            Storage::put($this->_path."/".$baby->id."/".$filename, $this->getImg(1024,$img));
+            Storage::put($this->_path_thumb."/".$baby->id."/".$filename, $this->getImg(150,$img));
 
-        $photo->save();
+            $photo->fill(
+                $request->only('baby_id','description','date')
+            );
+
+            $photo->photo = $filename;
+            $photo->photo_thumb = $filename;
+
+            if(!$photo->save())
+                $ok=false;
+            
+        }   
+
+        if($ok) session()->flash('message','Photos Uploaded');   
+
+        return redirect()->route('all_photos_path',['baby' => $baby->id ]);
+
+    }
+
+    public function destroyAction(Baby $baby,Photo $photo)
+    {
+        Storage::delete([$this->_path."/".$baby->id."/".$photo->photo, $this->_path_thumb."/".$baby->id."/".$photo->photo ]);
+
+        if($photo->delete())
+            session()->flash('message','Photo deleted');
+
+        return redirect()->route('all_photos_path',['baby' => $baby->id ]);
+    }
+
+    private function getImg($size, $img)
+    {
+        return $img = Image::make($img)->widen($size,function($constraint){
+                                                            $constraint->upsize();
+                                                        }
+                                                      )
+                                               ->encode();
     }
 }

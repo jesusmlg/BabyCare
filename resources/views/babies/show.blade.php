@@ -36,7 +36,11 @@
 			<b>Photos:</b>
 			<p>
 				<a href="{{ route('new_photo_path',['baby' => $baby->id]) }}" class="btn btn-primary">Add Photos</a>
+				<a href="{{ route('all_photos_path',['baby' => $baby->id]) }}" class="btn btn-primary">Show All Photos</a>
 			</p>
+			<div class="latest_photos">
+				@include('photos._thumbs',['photos' => $photos])
+			</div>
 		</li>
 	</ul>
 

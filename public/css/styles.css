@@ -1,0 +1,18 @@
+.div-photo-thumb{
+	float: left;
+	margin-right: 20px;	
+	text-align: center;
+	max-height: 150px;
+}
+.img-photo-thumb{
+	
+}
+.img-photo-thumb:hover{
+	border: 1px solid #8DD8EB;
+}
+.latest_photos{
+	width: 100%;	
+	overflow: hidden;
+	display: block;
+	clear: both;
+}  

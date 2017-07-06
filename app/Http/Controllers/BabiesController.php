@@ -11,6 +11,7 @@ use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\File;
 use \App\Weight;
 use \App\Vaccine;
+use \App\Photo;
 use Khill\Lavacharts\Lavacharts;
 
 //use App\Http\Controllers\Input;
@@ -100,6 +101,7 @@ class BabiesController extends Controller
 
     public function showAction(Baby $baby, Request $request)
     {
+        
         $weight = new \App\Weight();
         
         $vaccine = new Vaccine();
@@ -110,6 +112,11 @@ class BabiesController extends Controller
                                 ->skip(0)
                                 ->take(2)
                                 ->get();
+        $photos = \App\Photo::where('baby_id',$baby->id)
+                            ->orderBy('date','desc')
+                            ->skip(0)
+                            ->take(4)
+                            ->get();
 
         $lava = new \Khill\Lavacharts\Lavacharts;
 
@@ -123,7 +130,7 @@ class BabiesController extends Controller
 
         $lava->AreaChart('BabyWeights',$population,['ticle' => 'weight of my baby', 'lenged' => ['position' =>'in'] ]);
 
-        return view('babies.show',compact('baby','weight','lava','vaccine','vaccines'));
+        return view('babies.show',compact('baby','weight','lava','vaccine','vaccines','photos'));
     }
 
 }
