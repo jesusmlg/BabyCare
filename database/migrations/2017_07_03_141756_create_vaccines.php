@@ -17,7 +17,7 @@ class CreateVaccines extends Migration
             $table->string('name');
             $table->integer('baby_id');
             $table->date('due_date');
-            $table->date('done_date'->default(01-01-1900));
+            $table->date('done_date')->default('01-01-1900');
             $table->integer('done')->default(0);
         });
     }
