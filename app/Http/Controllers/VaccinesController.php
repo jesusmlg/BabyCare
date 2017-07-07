@@ -31,6 +31,14 @@ class VaccinesController extends Controller
     	return redirect()->route('show_baby_path',['baby' => $request->baby_id]);
     }
 
+    public function destroyVaccine($baby,$vaccine)
+    {
+        if($vaccine->delete())
+            session()->flash('message','Vaccine deleted');
+
+        return redirect()->route('show_baby_path',$baby->id);
+    }
+
    
        
         

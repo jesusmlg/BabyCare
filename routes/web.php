@@ -43,6 +43,7 @@ Route::middleware('auth')->group(function(){
 	Route::get('/vaccine/{baby}/vaccines','VaccinesController@indexAction')->name('all_vaccines_path');
 	Route::get('/vaccine/{baby}/new','VaccinesController@newAction')->name('new_vaccine_path');
 	Route::post('/vaccine/{baby}/create','VaccinesController@createAction')->name('create_vaccine_path');
+	Route::delete('/baby/{baby}/vaccine/{vaccine}/delete','PhotosController@destroyAction')->name('delete_vaccine_path');
 
 	//Photos routes
 

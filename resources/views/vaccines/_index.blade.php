@@ -14,10 +14,26 @@
 	</div>
 {{ Form::close() }}
 
-
-@foreach ($vaccines as $v)
-<ul>
-	<li> {{ $v->name }} left {{ $v->due_date }} <b>{{ $v->getDueDateCarbon()->diffForHumans() }}</b></li>
-</ul>
-	
-@endforeach
+<table class="table table-striped">
+	<thead>
+		<th>name</th>
+		<th>due date</th>
+		<th>done date</th>
+		<th>acctions</th>
+	</thead>
+	<tbody>
+		@foreach ($vaccines as $v)
+				<tr>
+					<td>{{ $v->name }}</td>
+					<td>{{ $v->due_date }}  <i>({{ $v->getDueDateCarbon()->diffForHumans() }})</i></td>
+					<td>@if($v->done_date!='1900-01-01') {{ $v->done_date }} @endif</td>
+					<td>
+						{{ Form::open(['route' => ['delete_vaccine_path',$baby->id,$v->id],'method' => 'delete','id' => 'form-vaccine-delete']) }}	
+							<button type="submit" class="glyphicon glyphicon-remove" onclick="return confirm('Are you sure')"></button>
+						{{ Form::close() }}
+						
+					</td>
+				</tr>		
+		@endforeach
+	</tbody>
+</table>	
