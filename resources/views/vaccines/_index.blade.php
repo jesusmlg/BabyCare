@@ -29,7 +29,7 @@
 					<td>@if($v->done_date!='1900-01-01') {{ $v->done_date }} @endif</td>
 					<td>
 						{{ Form::open(['route' => ['delete_vaccine_path',$baby->id,$v->id],'method' => 'delete','id' => 'form-vaccine-delete']) }}	
-							<button type="submit" class="glyphicon glyphicon-remove" onclick="return confirm('Are you sure')"></button>
+							<button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure')"><b>x</b></button>
 						{{ Form::close() }}
 						
 					</td>
