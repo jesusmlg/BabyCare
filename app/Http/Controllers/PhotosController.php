@@ -12,9 +12,6 @@ use Illuminate\Support\Facades\Storage;
 class PhotosController extends Controller
 {
 
-	private $_path = "photos";
-	private $_path_thumb = "photos_thumb";
-
     public function newAction(Baby $baby)
     {
     	$photo = new Photo();
@@ -41,8 +38,8 @@ class PhotosController extends Controller
 
             $filename = md5(time()) . "." . $img->extension();    
 
-            Storage::put($this->_path."/".$baby->id."/".$filename, $this->getImg(1024,$img));
-            Storage::put($this->_path_thumb."/".$baby->id."/".$filename, $this->getImg(150,$img));
+            Storage::put(config('paths.baby_photo')."/".$baby->id."/".$filename, $this->getImg(1024,$img));
+            Storage::put(config('paths.baby_thumb')."/".$baby->id."/".$filename, $this->getImg(150,$img));
 
             $photo->fill(
                 $request->only('baby_id','description','date')

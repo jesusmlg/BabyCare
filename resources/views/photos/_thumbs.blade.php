@@ -3,7 +3,7 @@
 	
 		<div class="div-photo-thumb">
 			<a href="{{ route('show_photo_path',['baby' => $baby->id, 'file' => $p->photo]) }}">
-				<img src="{{ route('show_photothumb_path',['baby' => $baby->id, 'file' => $p->photo]) }}" class="img-photo-thumb">	
+				<img src="{{ route('show_photothumb_path',['baby' => $baby->id, 'file' => $p->photo]) }}" class="img-photo-thumb" title="{{ $photo->description }}">	
 			</a>
 				@if(\Request::route()->getName() == "all_photos_path")
 

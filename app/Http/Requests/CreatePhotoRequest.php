@@ -25,7 +25,8 @@ class CreatePhotoRequest extends FormRequest
     {
         return [
             'photo' => 'required',
-            'date'  => 'required|max:10|date_format:m-d-Y'
+            'date'  => 'required|max:10|date_format:m-d-Y',
+            'description' => 'required',
         ];
     }
 }

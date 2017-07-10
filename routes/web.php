@@ -11,13 +11,13 @@
 |
 */
 
-Route::get('/photo/{baby}/thumb/{file}',function($baby,$file){
-	$img = Storage::get('photos_thumb/'.$baby."/".$file);
+Route::get('/photos/{baby}/thumb/{file}',function($baby,$file){
+	$img = Storage::get(config('paths.baby_thumb')."/".$baby."/".$file);
 	return Image::make($img)->response();
 })->name('show_photothumb_path')->middleware('auth');
 
-Route::get('/photo/{baby}/photo/{file}',function($baby,$file){
-	$img = Storage::get('photos/'.$baby."/".$file);
+Route::get('/photos/{baby}/photo/{file}',function($baby,$file){
+	$img = Storage::get(config('paths.baby_photo')."/".$baby."/".$file);
 	return Image::make($img)->response();
 })->name('show_photo_path')->middleware('auth');
 

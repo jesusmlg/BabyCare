@@ -184,6 +184,9 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         //Graphics
         Khill\Lavacharts\Laravel\LavachartsServiceProvider::class,
+        //Dropbox
+        BC\Laravel\DropboxDriver\ServiceProvider::class,
+
 
     ],
 

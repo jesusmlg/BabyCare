@@ -38,7 +38,7 @@ class BabiesController extends Controller
 
         $filename = md5(time()).'.'. $request->baby_photo->extension();
 
-        Storage::put(config('paths.baby_avatar')."/".$filename, Image::make($request->baby_photo)->widen(250,function($constraint){
+        Storage::put(config('paths.baby_avatar').'/'.$filename, Image::make($request->baby_photo)->widen(250,function($constraint){
                                                                                           $constraint->upsize();
                                                                                             }
                                                                                         )
@@ -78,13 +78,13 @@ class BabiesController extends Controller
  
         if ($request->hasFile('baby_photo')) 
         {
-            if($baby->baby_photo && Storage::exists('public/img/babies/'.$baby->baby_photo))
-                Storage::delete(['public/img/babies/'.$baby->baby_photo]);
+            if($baby->baby_photo && Storage::exists(config('paths.baby_avatar').'/'.$baby->baby_photo))
+                Storage::delete([config('paths.baby_avatar').'/'.$baby->baby_photo]);
 
             
             $filename = md5(time()).'.'. $request->baby_photo->extension();
 
-            Storage::put(config('paths.baby_avatar')."/".$filename, Image::make($request->baby_photo)->widen(250,function($constraint){
+            Storage::put(config('paths.baby_avatar').'/'.$filename, Image::make($request->baby_photo)->widen(250,function($constraint){
                                                                                           $constraint->upsize();
                                                                                             }
                                                                                         )
