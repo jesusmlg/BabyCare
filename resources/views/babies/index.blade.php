@@ -11,8 +11,8 @@
 		@foreach($babies as $baby)
 			<div class="div_index_baby">
 				<li class="list-group-item">
-					<h4><b>{{ $baby->name }}</b></h4>
-					<img src="{{ asset('storage/img/babies/'.$baby->baby_photo) }}">
+					<h4><b>{{ $baby->name }}</b></h4>					
+					<img src="{{ route('show_avatar_path',['file' => $baby->baby_photo])  }}">
 				</li>
 				<li class="list-group-item">
 					<form method="post" action="{{ route('delete_baby_path',['id' => $baby->id]) }}">

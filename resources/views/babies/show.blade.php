@@ -6,7 +6,7 @@
 			<h2>{{ $baby->name }}</h2>
 		</li>
 		<li class="list-group-item">
-			<img src="{{ asset('storage/img/babies/'.$baby->baby_photo)  }}">			
+			<img src="{{ route('show_avatar_path',['file' => $baby->baby_photo])  }}">			
 		</li>
 	
 

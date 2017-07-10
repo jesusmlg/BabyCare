@@ -21,6 +21,11 @@ Route::get('/photo/{baby}/photo/{file}',function($baby,$file){
 	return Image::make($img)->response();
 })->name('show_photo_path')->middleware('auth');
 
+Route::get('/avatar/{file}',function($file){
+	$img = Storage::get(config('paths.baby_avatar').'/'.$file);
+	return Image::make($img)->response();
+})->name('show_avatar_path')->middleware('auth');
+
 Route::middleware('auth')->group(function(){
 	Route::get('/','BabiesController@indexAction');
 	Route::get('/home','BabiesController@indexAction');

@@ -17,7 +17,8 @@ use Khill\Lavacharts\Lavacharts;
 //use App\Http\Controllers\Input;
 
 class BabiesController extends Controller
-{    
+{       
+
     public function indexAction()
     {
     	$user = Auth::user();
@@ -34,6 +35,14 @@ class BabiesController extends Controller
             $request->only('name','city','genre','birthdate') 
         );
         $baby->user_id = Auth::user()->id;
+
+        $filename = md5(time()).'.'. $request->baby_photo->extension();
+
+        Storage::put(config('paths.baby_avatar')."/".$filename, Image::make($request->baby_photo)->widen(250,function($constraint){
+                                                                                          $constraint->upsize();
+                                                                                            }
+                                                                                        )
+                                                                                 ->encode());
 
         if($baby->save())
             session()->flash('message','Baby Created');
@@ -74,13 +83,12 @@ class BabiesController extends Controller
             
             $filename = md5(time()).'.'. $request->baby_photo->extension();
 
-            //$path = $request->baby_photo->storeAs('public/img/babies', $filename);
-
-            //$imgtmp = Image::make($request->baby_photo)->resize(80, 80)->save(public_path('img/'.$filename));
-            $imgtmp = Image::make($request->baby_photo)->fit(250)->save(public_path('img/'.$filename));
-
-            Storage::put('public/img/babies/'. $filename, $imgtmp);
-            File::delete(public_path('img/'.$filename));
+            Storage::put(config('paths.baby_avatar')."/".$filename, Image::make($request->baby_photo)->widen(250,function($constraint){
+                                                                                          $constraint->upsize();
+                                                                                            }
+                                                                                        )
+                                                                                 ->encode());
+            
             $baby->baby_photo = $filename;
         }
 
