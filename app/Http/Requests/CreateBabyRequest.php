@@ -28,7 +28,8 @@ class CreateBabyRequest extends FormRequest
             'name' => 'required',
             'genre' => 'required',
             'birthdate' => 'required|date_format:d-m-Y',
-            'city' => 'required'
+            'city' => 'required',
+            'baby_photo' => 'required'
         ];
     }
 }

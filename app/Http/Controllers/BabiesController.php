@@ -43,6 +43,7 @@ class BabiesController extends Controller
                                                                                             }
                                                                                         )
                                                                                  ->encode());
+        $baby->baby_photo = $filename;
 
         if($baby->save())
             session()->flash('message','Baby Created');
@@ -88,7 +89,7 @@ class BabiesController extends Controller
                                                                                             }
                                                                                         )
                                                                                  ->encode());
-            
+
             $baby->baby_photo = $filename;
         }
 
