@@ -23,7 +23,7 @@ class BabiesController extends Controller
     public function indexAction()
     {
     	$user = Auth::user();
-        $babies = Baby::where('user_id',1)->get();
+        $babies = Baby::where('user_id',Auth::id())->get();
          
     	return view('babies.index',compact(['babies']));
     }
@@ -62,9 +62,8 @@ class BabiesController extends Controller
 
     
 
-    public function editAction($id)
-    {
-        $baby = Baby::find($id);
+    public function editAction(Baby $baby)
+    {        
 
         return view('babies.edit',compact('baby'));        
     }

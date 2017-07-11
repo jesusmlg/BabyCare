@@ -32,35 +32,42 @@ Route::middleware('auth')->group(function(){
 	Route::get('/babies', 'BabiesController@indexAction')->name('all_babies_path');
 	Route::get('/baby/new', 'BabiesController@newAction')->name('new_baby_path');
 	Route::post('/baby/create','BabiesController@createAction')->name('create_baby_path');
-	Route::get('/baby/{id}/edit','BabiesController@editAction')->name('edit_baby_path');
-	Route::post('/baby/{baby}/update','BabiesController@updateAction')->name('update_baby_path');
-	Route::delete('/baby/{baby}/delete','BabiesController@deleteAction')->name('delete_baby_path');
-	Route::get('/baby/{baby}','BabiesController@showAction')->name('show_baby_path');
 
-	//weights routes
+	Route::middleware('owner')->group(function(){
+		Route::get('/baby/{baby}/edit','BabiesController@editAction')->name('edit_baby_path');
+		Route::post('/baby/{baby}/update','BabiesController@updateAction')->name('update_baby_path');
+		Route::delete('/baby/{baby}/delete','BabiesController@deleteAction')->name('delete_baby_path');
+		Route::get('/baby/{baby}','BabiesController@showAction')->name('show_baby_path');
 
-	Route::get('/baby/{baby}/weights','WeightsController@indexAction')->name('all_weights_path');
-	Route::get('/baby/{baby}/weights/new','WeightsController@newAction')->name('new_weight_path');
-	Route::post('/baby/{baby}/weights/create','WeightsController@createAction')->name('create_weight_path');
+		//weights routes
 
-	//heights routes
+		Route::get('/baby/{baby}/weights','WeightsController@indexAction')->name('all_weights_path');
+		Route::get('/baby/{baby}/weights/new','WeightsController@newAction')->name('new_weight_path');
+		Route::post('/baby/{baby}/weights/create','WeightsController@createAction')->name('create_weight_path');
 
-	Route::get('/baby/{baby}/heights','HeightsController@indexAction')->name('all_heights_path');
-	Route::get('/baby/{baby}/heights/new','HeightsController@newAction')->name('new_height_path');
-	Route::post('/baby/{baby}/heights/create','HeightsController@createAction')->name('create_height_path');
+		//heights routes
 
-	//vaccines routes
+		Route::get('/baby/{baby}/heights','HeightsController@indexAction')->name('all_heights_path');
+		Route::get('/baby/{baby}/heights/new','HeightsController@newAction')->name('new_height_path');
+		Route::post('/baby/{baby}/heights/create','HeightsController@createAction')->name('create_height_path');
 
-	Route::get('/vaccine/{baby}/vaccines','VaccinesController@indexAction')->name('all_vaccines_path');
-	Route::get('/vaccine/{baby}/new','VaccinesController@newAction')->name('new_vaccine_path');
-	Route::post('/vaccine/{baby}/create','VaccinesController@createAction')->name('create_vaccine_path');
-	Route::delete('/baby/{baby}/vaccine/{vaccine}/delete','PhotosController@destroyAction')->name('delete_vaccine_path');
+		//vaccines routes
 
-	//Photos routes
+		Route::get('/vaccine/{baby}/vaccines','VaccinesController@indexAction')->name('all_vaccines_path');
+		Route::get('/vaccine/{baby}/new','VaccinesController@newAction')->name('new_vaccine_path');
+		Route::post('/vaccine/{baby}/create','VaccinesController@createAction')->name('create_vaccine_path');
+		Route::delete('/baby/{baby}/vaccine/{vaccine}/delete','PhotosController@destroyAction')->name('delete_vaccine_path');
 
-	Route::get('/photo/{baby}','PhotosController@indexAction')->name('all_photos_path');
-	Route::get('/photo/{baby}/new','PhotosController@newAction')->name('new_photo_path');
-	Route::post('/photo/{baby}/create','PhotosController@createAction')->name('create_photo_path');
-	Route::delete('/baby/{baby}/photo/{photo}/delete','PhotosController@destroyAction')->name('delete_photo_path');
+		//Photos routes
+
+		Route::get('/photo/{baby}','PhotosController@indexAction')->name('all_photos_path');
+		Route::get('/photo/{baby}/new','PhotosController@newAction')->name('new_photo_path');
+		Route::post('/photo/{baby}/create','PhotosController@createAction')->name('create_photo_path');
+		Route::delete('/baby/{baby}/photo/{photo}/delete','PhotosController@destroyAction')->name('delete_photo_path');
+	});
+	
 });
+
+
+
 Auth::routes();

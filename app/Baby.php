@@ -9,7 +9,7 @@ class Baby extends Model
 {
     use FormAccessible;
 
-    protected $fillable = ['name','birthdate','genre','city'];
+    protected $fillable = ['name','birthdate','genre','city','user_id'];
 
     //protected $dates = ['created_at', 'updated_at', 'birthdate'];
     //protected $dateFormat = 'd-m-Y H:i:s';
