@@ -15,4 +15,4 @@
 
 <div id="weights_graphic"></div>
 
-{!! $lava->render('AreaChart', 'BabyWeights', 'weights_graphic') !!}
+@areachart('BabyWeights', 'weights_graphic') 

@@ -43,6 +43,12 @@ Route::middleware('auth')->group(function(){
 	Route::get('/baby/{baby}/weights/new','WeightsController@newAction')->name('new_weight_path');
 	Route::post('/baby/{baby}/weights/create','WeightsController@createAction')->name('create_weight_path');
 
+	//heights routes
+
+	Route::get('/baby/{baby}/heights','HeightsController@indexAction')->name('all_heights_path');
+	Route::get('/baby/{baby}/heights/new','HeightsController@newAction')->name('new_height_path');
+	Route::post('/baby/{baby}/heights/create','HeightsController@createAction')->name('create_height_path');
+
 	//vaccines routes
 
 	Route::get('/vaccine/{baby}/vaccines','VaccinesController@indexAction')->name('all_vaccines_path');

@@ -27,6 +27,16 @@
 
 		</li>
 
+		<li class="list-group-item list-group-item-info">
+			<b>Heights:</b>
+		</li>
+		<li class="list-group-item">
+			<p>
+				@include('heights._index',['baby' => $baby ])					
+			</p>
+
+		</li>
+
 		<li class="list-group-item list-group-item-info"">
 			<b>Vaccines:</b>
 		</li>

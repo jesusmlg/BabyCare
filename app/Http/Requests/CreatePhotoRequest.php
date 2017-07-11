@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class CreatePhotoRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class CreatePhotoRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return Auth::check();
     }
 
     /**
@@ -25,6 +26,7 @@ class CreatePhotoRequest extends FormRequest
     {
         return [
             'photo' => 'required',
+            'photo.*' => 'file|mimes:jpg,jpeg,bmp,png,gif',
             'date'  => 'required|max:10|date_format:m-d-Y',
             'description' => 'required',
         ];

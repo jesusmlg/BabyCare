@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Baby;
+use App\Http\Requests\CreateWeightRequest;
 
 class WeightsController extends Controller
 {
@@ -21,7 +22,7 @@ class WeightsController extends Controller
     	return view('weights.new', compact('weight','baby'));
     }
 
-    public function createAction(Request $request)
+    public function createAction(CreateWeightRequest $request)
     {
     	$weight = new \App\Weight();
 

@@ -61,7 +61,7 @@ class PhotosController extends Controller
 
     public function destroyAction(Baby $baby,Photo $photo)
     {
-        Storage::delete([$this->_path."/".$baby->id."/".$photo->photo, $this->_path_thumb."/".$baby->id."/".$photo->photo ]);
+        Storage::delete([config('paths.baby_photo')."/".$baby->id."/".$photo->photo, config('paths.baby_photo')."/".$baby->id."/".$photo->photo ]);
 
         if($photo->delete())
             session()->flash('message','Photo deleted');

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class CreateBabyRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class CreateBabyRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return Auth::check();
     }
 
     /**
@@ -29,7 +30,7 @@ class CreateBabyRequest extends FormRequest
             'genre' => 'required',
             'birthdate' => 'required|date_format:d-m-Y',
             'city' => 'required',
-            'baby_photo' => 'required'
+            'baby_photo' => 'required|mimes:jpg,jpeg,bmp,png,gif',
         ];
     }
 }

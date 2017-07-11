@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\File;
 use \App\Weight;
+use \App\Height;
 use \App\Vaccine;
 use \App\Photo;
 use Khill\Lavacharts\Lavacharts;
@@ -112,6 +113,7 @@ class BabiesController extends Controller
     {
         
         $weight = new \App\Weight();
+        $height = new \App\Height();
         
         $vaccine = new Vaccine();
         
@@ -127,19 +129,30 @@ class BabiesController extends Controller
                             ->take(4)
                             ->get();
 
-        $lava = new \Khill\Lavacharts\Lavacharts;
+        //$lava = new \Khill\Lavacharts\Lavacharts;
+        //$lavaHeights = new \Khill\Lavacharts\Lavacharts;
 
         $data = \App\Weight::select('date as 0','weight as 1')->where('baby_id',$baby->id)->orderBy('date','asc')->get()->toArray();
+        $dataHeights= \App\Height::select('date as 0','height as 1')->where('baby_id',$baby->id)->orderBy('date','asc')->get()->toArray();
 
-        $population = $lava->DataTable();
+        $population = \Lava::DataTable();
+        $populationHeights = \Lava::DataTable();
 
         $population->addDateColumn('Date')
                     ->addNumberColumn('Weight')
                     ->addRows($data);
+        $populationHeights->addDateColumn('Date')
+                    ->addNumberColumn('Height')
+                    ->addRows($dataHeights);
 
-        $lava->AreaChart('BabyWeights',$population,['ticle' => 'weight of my baby', 'lenged' => ['position' =>'in'] ]);
+        \Lava::AreaChart('BabyHeights',$populationHeights,['title' => '']);
 
-        return view('babies.show',compact('baby','weight','lava','vaccine','vaccines','photos'));
+        \Lava::AreaChart('BabyWeights',$population,['title' => '']);
+
+
+        
+
+        return view('babies.show',compact('baby','weight','height','population','populationHeights','vaccine','vaccines','photos'));
     }
 
 }

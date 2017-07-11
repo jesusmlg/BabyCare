@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class CreateWeightRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class CreateWeightRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return Auth::check();
     }
 
     /**
@@ -24,7 +25,7 @@ class CreateWeightRequest extends FormRequest
     public function rules()
     {
         return [
-            'weight' => 'required|numeric|max:10',
+            'weight' => 'required|numeric|max:10|between:0,999,99',
             'date' => 'required|date_format:d-m-Y|max:10'
         ];
     }
