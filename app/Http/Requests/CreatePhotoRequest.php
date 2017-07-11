@@ -25,8 +25,8 @@ class CreatePhotoRequest extends FormRequest
     public function rules()
     {
         return [
-            'photo' => 'required',
-            'photo.*' => 'file|mimes:jpg,jpeg,bmp,png,gif',
+            'photo' => 'required|mimes:jpg,jpeg,bmp,png,gif|',
+            'photo.*' => 'required|mimes:jpg,jpeg,bmp,png,gif|max:4000',
             'date'  => 'required|max:10|date_format:m-d-Y',
             'description' => 'required',
         ];
