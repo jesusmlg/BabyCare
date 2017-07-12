@@ -44,12 +44,14 @@ Route::middleware('auth')->group(function(){
 		Route::get('/baby/{baby}/weights','WeightsController@indexAction')->name('all_weights_path');
 		Route::get('/baby/{baby}/weights/new','WeightsController@newAction')->name('new_weight_path');
 		Route::post('/baby/{baby}/weights/create','WeightsController@createAction')->name('create_weight_path');
+		Route::delete('/baby/{baby}/weight/delete','WeightsController@deleteAction')->name('delete_weight_path');
 
 		//heights routes
 
 		Route::get('/baby/{baby}/heights','HeightsController@indexAction')->name('all_heights_path');
 		Route::get('/baby/{baby}/heights/new','HeightsController@newAction')->name('new_height_path');
 		Route::post('/baby/{baby}/heights/create','HeightsController@createAction')->name('create_height_path');
+		Route::delete('/baby/{baby}/height/delete','HeightsController@deleteAction')->name('delete_height_path');
 
 		//vaccines routes
 
@@ -64,6 +66,7 @@ Route::middleware('auth')->group(function(){
 		Route::get('/photo/{baby}/new','PhotosController@newAction')->name('new_photo_path');
 		Route::post('/photo/{baby}/create','PhotosController@createAction')->name('create_photo_path');
 		Route::delete('/baby/{baby}/photo/{photo}/delete','PhotosController@destroyAction')->name('delete_photo_path');
+		Route::delete('/baby/{baby}/photos/delete','PhotosController@deleteAction')->name('delete_photos_path');
 	});
 	
 });

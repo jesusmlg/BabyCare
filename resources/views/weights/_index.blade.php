@@ -9,6 +9,7 @@
 			{{ Form::hidden('baby_id',$baby->id) }}
 
 			{{ Form::submit('Add',['class' => 'btn btn-primary']) }}
+			<a href="{{ route('all_weights_path',['baby' => $baby->id]) }}" class="btn btn-info">Show List</a>
 		</div>	
 		
 {{ Form::close() }}

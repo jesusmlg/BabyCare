@@ -9,11 +9,11 @@ use App\Http\Requests\CreateHeightRequest;
 
 class HeightsController extends Controller
 {
-    public function indexAction($baby)
+    public function indexAction(Baby $baby)
     {
-    	$heights = App\Height::where('baby_id',$baby->id);
+    	$heights = \App\Height::where('baby_id',$baby->id)->orderBy('date','asc')->get();
 
-    	return view('heights.index',compact('heights'));
+    	return view('heights.index',compact('heights','baby'));
     }
 
     public function newAction(Baby $baby)

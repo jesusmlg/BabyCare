@@ -7,7 +7,7 @@
          <span class="icon-bar"></span>
          <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">BabyCare</a>
+      <a class="navbar-brand" href="{{ route("all_babies_path") }}">BabyCare</a>
     </div>
      <div id="navbar" class="navbar-collapse collapse">
        <ul class="nav navbar-nav">
@@ -25,7 +25,8 @@
                 </a>
 
                 <ul class="dropdown-menu" role="menu">
-                    <li><a href="{{ route("all_babies_path") }}">All Babies</a></li>
+                    <li><a href="{{ route("all_babies_path") }}">Babies</a></li>
+                    <li><hr></li>
                     
                     <li>
                         <a href="{{ route('logout') }}"

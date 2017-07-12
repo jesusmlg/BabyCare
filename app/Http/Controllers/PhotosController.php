@@ -38,8 +38,8 @@ class PhotosController extends Controller
 
             $filename = md5(time()) . "." . $img->extension();    
 
-            Storage::put(config('paths.baby_photo')."/".$baby->id."/".$filename, $this->getImg(1024,$img));
-            Storage::put(config('paths.baby_thumb')."/".$baby->id."/".$filename, $this->getImg(150,$img));
+            Storage::put(config('paths.baby_photo')."/".$baby->id."/".$filename, $this->getImg(1980,$img));
+            Storage::put(config('paths.baby_thumb')."/".$baby->id."/".$filename, $this->getImg(150,$img,false));
 
             $photo->fill(
                 $request->only('baby_id','description','date')
@@ -59,22 +59,45 @@ class PhotosController extends Controller
 
     }
 
-    public function destroyAction(Baby $baby,Photo $photo)
+    public function destroyAction(Baby $baby,Photo $photo, $multiple = false)
     {
         Storage::delete([config('paths.baby_photo')."/".$baby->id."/".$photo->photo, config('paths.baby_photo')."/".$baby->id."/".$photo->photo ]);
 
         if($photo->delete())
             session()->flash('message','Photo deleted');
 
+        if(!$multiple)
+            return redirect()->route('all_photos_path',['baby' => $baby->id ]);
+    }
+
+    public function deleteAction(Baby $baby, Request $request)
+    {
+        if($request->photos)
+        {
+            foreach ($request->photos as $photo) 
+            {                
+                $photo = Photo::find($photo);
+                $this->destroyAction($baby, $photo, true);
+            }    
+        }
+        else
+        {
+            session()->flash('message','No photos selected');
+        }
+
         return redirect()->route('all_photos_path',['baby' => $baby->id ]);
     }
 
-    private function getImg($size, $img)
+    private function getImg($size, $img, $upsize = true)
     {
-        return $img = Image::make($img)->widen($size,function($constraint){
-                                                            $constraint->upsize();
+        $img = Image::make($img)->widen($size,function($constraint) use ($upsize){
+                                                            if($upsize) $constraint->upsize();
                                                         }
-                                                      )
-                                               ->encode();
+                                                      );
+        if(!$upsize) // this is for thumbnails to set the same size
+            $img->fit(150);
+
+        return $img->encode();
+
     }
 }

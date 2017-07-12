@@ -8,11 +8,11 @@ use App\Http\Requests\CreateWeightRequest;
 
 class WeightsController extends Controller
 {
-    public function indexAction($baby)
+    public function indexAction(Baby $baby)
     {
-    	$weights = App\Weight::where('baby_id',$baby->id);
+    	$weights = \App\Weight::where('baby_id',$baby->id)->orderBy('date','asc')->get();
 
-    	return view('weights.index',compact('weights'));
+    	return view('weights.index',compact('weights','baby'));
     }
 
     public function newAction(Baby $baby)

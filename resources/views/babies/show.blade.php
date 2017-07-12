@@ -52,9 +52,9 @@
 		<li class="list-group-item">
 			<p>
 				<a href="{{ route('new_photo_path',['baby' => $baby->id]) }}" class="btn btn-primary">Add Photos</a>
-				<a href="{{ route('all_photos_path',['baby' => $baby->id]) }}" class="btn btn-primary">Show All Photos</a>
+				<a href="{{ route('all_photos_path',['baby' => $baby->id]) }}" class="btn btn-info">Show All Photos</a>
 			</p>
-			<div class="latest_photos">
+			<div class="latest_photos text-center">
 				@include('photos._thumbs',['photos' => $photos])
 			</div>
 		</li>

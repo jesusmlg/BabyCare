@@ -9,7 +9,10 @@
 			{{ Form::hidden('baby_id',$baby->id) }}
 
 			{{ Form::submit('Add',['class' => 'btn btn-primary']) }}
-		</div>	
+			 <a href="{{ route('all_heights_path',['baby' => $baby->id]) }}" class="btn btn-info">Show List</a>
+		</div>
+
+
 		
 {{ Form::close() }}
 
