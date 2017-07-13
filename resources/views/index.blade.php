@@ -16,6 +16,7 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+        <script src="{{ asset('js/functions.js') }}"></script>
 	</head>
 	<body>
 		<nav>
@@ -33,5 +34,7 @@
                 </div>
             </div>
         </div>
+        <script src="{{ asset('js/app.js') }}"></script>
+
 	</body>
 </html>

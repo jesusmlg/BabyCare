@@ -33,7 +33,7 @@ Route::middleware('auth')->group(function(){
 	Route::get('/baby/new', 'BabiesController@newAction')->name('new_baby_path');
 	Route::post('/baby/create','BabiesController@createAction')->name('create_baby_path');
 
-	Route::middleware('owner')->group(function(){
+	//Route::middleware('owner')->group(function(){
 		Route::get('/baby/{baby}/edit','BabiesController@editAction')->name('edit_baby_path');
 		Route::post('/baby/{baby}/update','BabiesController@updateAction')->name('update_baby_path');
 		Route::delete('/baby/{baby}/delete','BabiesController@deleteAction')->name('delete_baby_path');
@@ -57,7 +57,8 @@ Route::middleware('auth')->group(function(){
 
 		Route::get('/vaccine/{baby}/vaccines','VaccinesController@indexAction')->name('all_vaccines_path');
 		Route::get('/vaccine/{baby}/new','VaccinesController@newAction')->name('new_vaccine_path');
-		Route::post('/vaccine/{baby}/create','VaccinesController@createAction')->name('create_vaccine_path');
+		Route::post('
+			/vaccine/{baby}/create','VaccinesController@createAction')->name('create_vaccine_path');
 		Route::delete('/baby/{baby}/vaccine/{vaccine}/delete','PhotosController@destroyAction')->name('delete_vaccine_path');
 
 		//Photos routes
@@ -67,7 +68,7 @@ Route::middleware('auth')->group(function(){
 		Route::post('/photo/{baby}/create','PhotosController@createAction')->name('create_photo_path');
 		Route::delete('/baby/{baby}/photo/{photo}/delete','PhotosController@destroyAction')->name('delete_photo_path');
 		Route::delete('/baby/{baby}/photos/delete','PhotosController@deleteAction')->name('delete_photos_path');
-	});
+	//});
 	
 });
 

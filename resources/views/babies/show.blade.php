@@ -41,9 +41,12 @@
 			<b>Vaccines:</b>
 		</li>
 		<li class="list-group-item">
-				<p>
-					@include('vaccines._index',['baby' => $baby ])					
-				</p>
+				<div id="div-vaccines">
+					<p>
+						@include('vaccines._index',['baby' => $baby ])					
+					</p>	
+				</div>
+				
 
 		</li>
 		<li class="list-group-item list-group-item-info">
@@ -55,7 +58,7 @@
 				<a href="{{ route('all_photos_path',['baby' => $baby->id]) }}" class="btn btn-info">Show All Photos</a>
 			</p>
 			<div class="latest_photos text-center">
-				@include('photos._thumbs',['photos' => $photos])
+				
 			</div>
 		</li>
 	</ul>

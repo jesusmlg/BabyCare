@@ -20,6 +20,7 @@ class VaccinesController extends Controller
     {
     	$vaccine = new \App\Vaccine();
 
+
     	$vaccine->fill(
     		$request->only("name","due_date","baby_id")
     	);
@@ -27,6 +28,11 @@ class VaccinesController extends Controller
 
     	if($vaccine->save())
     		session()->flash('message','Vaccine save succesfully');
+
+        if($request->ajax())
+        {
+            return response()->json($vaccine);
+        }
 
     	return redirect()->route('show_baby_path',['baby' => $request->baby_id]);
     }

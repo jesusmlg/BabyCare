@@ -6,7 +6,7 @@
 			{{ Form::label('Height:', null, ['class' => 'control-label']) }}
 			{{ Form::text('height', null, ['class' => 'form-control', 'placeholder' => 'Height']) }}
 
-			{{ Form::hidden('baby_id',$baby->id) }}
+			{{ Form::hidden('baby_id',$baby->id ) }}
 
 			{{ Form::submit('Add',['class' => 'btn btn-primary']) }}
 			 <a href="{{ route('all_heights_path',['baby' => $baby->id]) }}" class="btn btn-info">Show List</a>

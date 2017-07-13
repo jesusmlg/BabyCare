@@ -120,7 +120,7 @@ class BabiesController extends Controller
                                 ->where('done',0)
                                 ->orderBy('due_date','asc')
                                 ->skip(0)
-                                ->take(2)
+                                ->take(50)
                                 ->get();
         $photos = \App\Photo::where('baby_id',$baby->id)
                             ->orderBy('date','desc')

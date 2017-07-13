@@ -2,19 +2,23 @@
 
 	<div class="form-inline">	
 		{{ Form::label('Name:', null, ['class' => 'control-label' ]) }} 
-		{{ Form::text('name', null, ['class' => 'form-control'] ) }}
+		{{ Form::text('name', null, ['class' => 'form-control','id' => 'vaccine-name'] ) }}
 
 
 		{{ Form::label('Due Date:',null, ['class' => 'control-label' ]) }} 
-		{{ Form::text('due_date', null, ['class' => 'form-control']) }}	
+		{{ Form::text('due_date', null, ['class' => 'form-control','id' => 'vaccine-date']) }}	
 
-		{{ Form::hidden('baby_id',$baby->id) }}
+		{{ Form::hidden('baby_id',$baby->id,['id' => 'vaccine-baby-id']) }}
 
 		{{ Form::submit('Add',['class' => 'btn btn-primary']) }}	
 	</div>
 {{ Form::close() }}
 
-<table class="table table-striped">
+<p>
+	<a href="#" id="add-ajax" class="btn btn-warning">Add with Ajax</a>
+	<input type="hidden" name="_token" id="vaccine-token" value="{{ csrf_token() }}">
+</p>
+<table class="table table-striped table-condensed">
 	<thead>
 		<th>name</th>
 		<th>due date</th>
