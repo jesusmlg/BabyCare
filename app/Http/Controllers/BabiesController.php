@@ -111,6 +111,8 @@ class BabiesController extends Controller
     public function showAction(Baby $baby, Request $request)
     {
         
+
+
         $weight = new \App\Weight();
         $height = new \App\Height();
         
@@ -149,7 +151,10 @@ class BabiesController extends Controller
         \Lava::AreaChart('BabyWeights',$population,['title' => '']);
 
 
-        
+        if($request->ajax())
+        {
+            return view('vaccines._index',compact('baby','vaccines','vaccine'));            
+        }
 
         return view('babies.show',compact('baby','weight','height','population','populationHeights','vaccine','vaccines','photos'));
     }

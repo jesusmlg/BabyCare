@@ -40,14 +40,12 @@
 		<li class="list-group-item list-group-item-info"">
 			<b>Vaccines:</b>
 		</li>
-		<li class="list-group-item">
+		<li class="list-group-item">			
+			<p>
 				<div id="div-vaccines">
-					<p>
-						@include('vaccines._index',['baby' => $baby ])					
-					</p>	
+					@include('vaccines._index',['baby' => $baby ])					
 				</div>
-				
-
+			</p>								
 		</li>
 		<li class="list-group-item list-group-item-info">
 			<b>Photos:</b>

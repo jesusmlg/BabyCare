@@ -1,34 +1,77 @@
 $(document).ready(function(){
-	$('#add-ajax').click(function(){
-		var name = $('#vaccine-name').val();
-		var date = $('#vaccine-date').val();
+//$(document).on('ready page:load', function(){
+
+
+	$(document).on('click','#btn-add-vaccine',function(e){
+
+		e.preventDefault();
+
+		var url = $(this).parent('form').attr('action');
 		var baby_id = $('#vaccine-baby-id').val();
-		var token = $('#vaccine-token').val();
-		var myurl = "{{ route('create_vaccine_path') }}"
-		//alert(name + ' - ' + date);
+		var data = $(this).parent('form').serializeArray();
+
+		
+		var mi_baby = {
+			'baby' :
+			{
+				'id' : baby_id
+			}
+		}		
+
 
 		$.ajax({
-			url:'/vaccine/'+baby_id+'/create',
-			//url: myurl,
-			method: "post",
+			url: url,			
+			method: 'post',
 			dataType: 'json',
-			data:{'name':name ,'due_date':date ,'baby_id': baby_id, '_token': token},
+			data: data,
 			success: function(data)
-			{
-				alert('ok '+data.name);
-				$('div-vaccines').fadeOut();
-					  $('div-vaccines').load(url, function() {
-					      $('div-vaccines').fadeIn();
-					  });
+			{				
+				
 			},
 			error: function(data)
 			{
 				alert('error');
 			},
-			complete:function(data)
+			complete: function(data)
 			{
-				alert('finish');
+				$('#div-vaccines').fadeOut();
+					$('#div-vaccines').load('/baby/'+baby_id,function() {
+					    $('#div-vaccines').fadeIn();
+				});
 			}
 		});
 	});
+
+	
+
+	$(document).on('click','.btn-vaccine-delete',function(e){
+		e.preventDefault();
+
+		var url = $(this).parent('form').attr('action');
+		var baby_id = $('#vaccine-baby-id').val();
+		var data = $(this).parent('form').serialize();
+		data = data+'&baby_id='+baby_id;
+
+		if (!confirm('Are you sure?'))
+			return false;
+
+		$.ajax({
+			url: url,
+			dataType: 'json',
+			data: data,
+			method: 'DELETE',
+			success: function(data){				
+
+				$('#div-vaccines').fadeOut();
+					$('#div-vaccines').load('/baby/'+baby_id,function() {
+					    $('#div-vaccines').fadeIn();
+				});
+			},
+			error: function(data){
+				alert('error');
+			}
+		});
+
+
+	})
 });

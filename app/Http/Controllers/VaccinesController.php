@@ -31,16 +31,21 @@ class VaccinesController extends Controller
 
         if($request->ajax())
         {
-            return response()->json($vaccine);
+            return response()->json(['messange' => 'ok']);
         }
 
     	return redirect()->route('show_baby_path',['baby' => $request->baby_id]);
     }
 
-    public function destroyVaccine($baby,$vaccine)
+    public function deleteAction(Baby $baby,Vaccine $vaccine, Request $request)
     {
         if($vaccine->delete())
             session()->flash('message','Vaccine deleted');
+
+        if($request->ajax())
+        {
+            return response()->json(['message' => 'ok']);
+        }
 
         return redirect()->route('show_baby_path',$baby->id);
     }
