@@ -21,6 +21,7 @@ class CreateBabiesTable extends Migration
             $table->enum('genre',['male','female']);
             $table->date('birthdate');
             $table->timestamps();
+            $table->integer('user_id');
         });
     }
 

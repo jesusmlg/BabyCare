@@ -28,7 +28,7 @@ Route::get('/avatar/{file}',function($file){
 
 Route::middleware('auth')->group(function(){
 	Route::get('/','BabiesController@indexAction');
-	Route::get('/home','BabiesController@indexAction');
+	Route::get('/home','BabiesController@indexAction')->name('home_path');
 	Route::get('/babies', 'BabiesController@indexAction')->name('all_babies_path');
 	Route::get('/baby/new', 'BabiesController@newAction')->name('new_baby_path');
 	Route::post('/baby/create','BabiesController@createAction')->name('create_baby_path');

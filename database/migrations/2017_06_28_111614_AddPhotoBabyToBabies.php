@@ -14,7 +14,7 @@ class AddPhotoBabyToBabies extends Migration
     public function up()
     {
         Schema::table('babies', function (Blueprint $table) {
-            $table->string('baby_photo');
+            $table->string('baby_photo')->default('');
         });
     }
 

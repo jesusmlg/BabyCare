@@ -29,7 +29,7 @@ class CheckOwner
         $baby = Baby::find($baby_id);
 
         if($baby->user_id != Auth::id())
-            return back()->withInput();
+            return redirect()->route('all_babies_path');
         else
 
         return $next($request);

@@ -14,11 +14,13 @@ class CreateVaccines extends Migration
     public function up()
     {
         Schema::create('vaccines', function(Blueprint $table){
+            $table->increments('id');
             $table->string('name');
             $table->integer('baby_id');
             $table->date('due_date');
             $table->date('done_date')->default('01-01-1900');
             $table->integer('done')->default(0);
+            $table->timestamps();
         });
     }
 
