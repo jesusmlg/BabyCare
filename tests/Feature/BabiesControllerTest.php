@@ -13,8 +13,7 @@ use Illuminate\Http\UploadedFile;
 
 class BabiesControllerTest extends TestCase
 {
-    use DatabaseMigrations;
-    //use WithoutMiddleware;
+    use DatabaseMigrations;   
 
     /** @test */
 
@@ -54,20 +53,55 @@ class BabiesControllerTest extends TestCase
     	$user = factory(\App\User::class)->create();
 
     	Auth::loginUsingId($user->id);
-   		dump(csrf_token());
+   		//echo env('')
     	$response = $this->post(route('create_baby_path'), [
     		'name' => 'Jesus',
     		'genre' => 'male',
     		'city' => 'Madrid',
     		'user_id' => 1,
     		'birthdate' => '01-01-2010',
-    		'baby_photo' => 'hola.jpg',
-    		'_token' => csrf_token(), 
+    		'baby_photo' => UploadedFile::fake()->image('my_image.jpg'),    		
     		]);
 
     	//dd($response);
 
     	$this->assertSame(\App\Baby::count(),1);
+    }
+
+    /** @test */
+
+
+    public function CanDeleteBaby()
+    {
+    	$baby = factory(\App\Baby::class)->create();    	
+
+    	Auth::loginUsingId($baby->user_id);
+
+    	$response = $this->delete(route('delete_baby_path',[
+    		'baby' => $baby->id,
+    		]));
+
+    	$this->assertSame(0,\App\Baby::count());
+
+    	$response->assertRedirect(route('all_babies_path'));
+
+    }
+
+    /** @test */
+
+    public function CantDeleteBabyNotYour()
+    {
+    	$babies = factory(\App\Baby::class,2)->create(); //baby 1 user_id 1 | baby 2 user_id 2
+
+    	
+    	Auth::loginUsingId(1);
+
+    	$response = $this->delete(route('delete_baby_path',[
+    		'baby' => 2
+    		]));
+
+    	$this->assertSame(\App\Baby::count(),2);
+    	$response->assertRedirect(route('all_babies_path'));
     }
   
 }

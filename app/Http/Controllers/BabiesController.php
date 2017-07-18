@@ -39,11 +39,7 @@ class BabiesController extends Controller
 
         $filename = md5(time()).'.'. $request->baby_photo->extension();
 
-        Storage::put(config('paths.baby_avatar').'/'.$filename, Image::make($request->baby_photo)->fit(250,function($constraint){
-                                                                                          $constraint->upsize();
-                                                                                            }
-                                                                                        )
-                                                                                 ->encode());
+        Storage::put(config('paths.baby_avatar').'/'.$filename, Image::make($request->baby_photo)->fit(250)->encode());
         $baby->baby_photo = $filename;
 
         if($baby->save())
