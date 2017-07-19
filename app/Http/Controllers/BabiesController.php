@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 //use App\Http\Requests\CreateBabyRequest;
-use App\Baby;
+use \App\Baby;
+use \App\Mail\BabyCreated;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
@@ -43,7 +45,10 @@ class BabiesController extends Controller
         $baby->baby_photo = $filename;
 
         if($baby->save())
+        {            
             session()->flash('message','Baby Created');
+            Mail::to('inteclu@gmail.com')->send(new BabyCreated($baby));
+        }
 
         return redirect()->route('all_babies_path');
 
